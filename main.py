@@ -39,6 +39,17 @@ def refresh_articles():
     print(f"[Scheduler] Refreshed {len(articles)} articles")
 
 
+# keep-alive (Render無料プランスリープ防止)
+async def _keep_alive():
+    import asyncio, httpx
+    while True:
+        await asyncio.sleep(600)
+        try:
+            async with httpx.AsyncClient() as client:
+                await client.get(f"{SITE_URL}/", timeout=10)
+        except Exception:
+            pass
+
 # 起動時に記事を生成
 @app.on_event("startup")
 def startup_event():
@@ -49,6 +60,9 @@ def startup_event():
     scheduler = BackgroundScheduler()
     scheduler.add_job(refresh_articles, "interval", hours=24)
     scheduler.start()
+    # keep-alive
+    import asyncio
+    asyncio.get_event_loop().create_task(_keep_alive())
 
 
 @app.get("/", response_class=HTMLResponse)
