@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ site_name }}{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}{{ site_description }}{% endblock %}">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{% block canonical %}{{ site_url }}{% endblock %}">
+
+    <!-- OGP -->
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}{{ site_name }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ site_description }}{% endblock %}">
+    <meta property="og:url" content="{% block og_url %}{{ site_url }}{% endblock %}">
+    <meta property="og:site_name" content="{{ site_name }}">
+    <meta property="og:locale" content="ja_JP">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block tw_title %}{{ site_name }}{% endblock %}">
+    <meta name="twitter:description" content="{% block tw_description %}{{ site_description }}{% endblock %}">
+
+    {% block structured_data %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "{{ site_name }}",
+        "url": "{{ site_url }}",
+        "description": "{{ site_description }}"
+    }
+    </script>
+    {% endblock %}
+
+    <link rel="stylesheet" href="/static/css/style.css">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="/" class="site-logo">
+                <h1 class="site-title">{{ site_name }}</h1>
+            </a>
+            <nav class="site-nav">
+                <ul>
+                    <li><a href="/">ホーム</a></li>
+                    <li><a href="/article/china-import-best-products-2026">おすすめ商品</a></li>
+                    <li><a href="/article/amazon-fba-start-guide-2026">FBAガイド</a></li>
+                    <li><a href="/article/1688-com-guide-japanese">1688.com使い方</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="site-main">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>{{ site_name }}</h3>
+                    <p>{{ site_description }}</p>
+                </div>
+                <div class="footer-links">
+                    <h3>カテゴリ</h3>
+                    <ul>
+                        <li><a href="/article/china-import-best-products-2026">おすすめ商品</a></li>
+                        <li><a href="/article/amazon-fba-start-guide-2026">Amazon FBA</a></li>
+                        <li><a href="/article/china-import-profit-calculator-comparison">利益計算ツール</a></li>
+                        <li><a href="/article/1688-com-guide-japanese">1688.com</a></li>
+                        <li><a href="/article/china-import-beginner-tips">初心者向け</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 {{ site_name }} | 当サイトはAmazonアソシエイト・プログラムに参加しています。</p>
+            </div>
+        </div>
+    </footer>
+
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }} | {{ site_name }}{% endblock %}
+{% block meta_description %}{{ article.meta_description }}{% endblock %}
+{% block canonical %}{{ site_url }}/article/{{ article.slug }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block og_title %}{{ article.title }}{% endblock %}
+{% block og_description %}{{ article.meta_description }}{% endblock %}
+{% block og_url %}{{ site_url }}/article/{{ article.slug }}{% endblock %}
+{% block tw_title %}{{ article.title }}{% endblock %}
+{% block tw_description %}{{ article.meta_description }}{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{{ structured_data_article }}
+</script>
+{% if structured_data_faq %}
+<script type="application/ld+json">
+{{ structured_data_faq }}
+</script>
+{% endif %}
+{% if structured_data_product %}
+<script type="application/ld+json">
+{{ structured_data_product }}
+</script>
+{% endif %}
+{% endblock %}
+
+{% block extra_head %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "ホーム", "item": "{{ site_url }}/"},
+        {"@type": "ListItem", "position": 2, "name": "{{ article.title }}", "item": "{{ site_url }}/article/{{ article.slug }}"}
+    ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb" aria-label="パンくずリスト">
+    <ol>
+        <li><a href="/">ホーム</a></li>
+        <li aria-current="page">{{ article.h1 }}</li>
+    </ol>
+</nav>
+
+<article class="article-content">
+    <header class="article-header">
+        <span class="article-keyword">{{ article.keyword }}</span>
+        <h1>{{ article.h1 }}</h1>
+        <div class="article-meta">
+            <time datetime="{{ article.published_at.strftime('%Y-%m-%d') }}">
+                公開: {{ article.published_at.strftime('%Y年%m月%d日') }}
+            </time>
+            <time datetime="{{ article.updated_at.strftime('%Y-%m-%d') }}">
+                更新: {{ article.updated_at.strftime('%Y年%m月%d日') }}
+            </time>
+        </div>
+    </header>
+
+    <!-- 目次 -->
+    <nav class="toc">
+        <h2>目次</h2>
+        <ol>
+            {% for section in article.sections %}
+            <li><a href="#section-{{ loop.index }}">{{ section.heading }}</a></li>
+            {% endfor %}
+            {% if article.products %}
+            <li><a href="#products">おすすめ商品</a></li>
+            {% endif %}
+            {% if article.faq %}
+            <li><a href="#faq">よくある質問</a></li>
+            {% endif %}
+        </ol>
+    </nav>
+
+    <!-- イントロ -->
+    <div class="article-intro">
+        <p>{{ article.intro }}</p>
+    </div>
+
+    <!-- 各セクション -->
+    {% for section in article.sections %}
+    <section id="section-{{ loop.index }}" class="article-section">
+        <h2>{{ section.heading }}</h2>
+        <div class="section-content">
+            {{ section.content | replace('\n\n', '</p><p>') | replace('\n', '<br>') | safe }}
+        </div>
+    </section>
+    {% endfor %}
+
+    <!-- 商品比較 -->
+    {% if article.products %}
+    <section id="products" class="article-section products-section">
+        <h2>おすすめ商品</h2>
+        <div class="products-grid">
+            {% for product in article.products %}
+            <div class="product-card">
+                <div class="product-header">
+                    <span class="product-rank">{{ loop.index }}位</span>
+                    <h3>{{ product.name }}</h3>
+                </div>
+                <div class="product-rating">
+                    <span class="stars">
+                        {% for i in range(5) %}
+                            {% if i < product.rating | int %}&#9733;{% else %}&#9734;{% endif %}
+                        {% endfor %}
+                    </span>
+                    <span class="rating-value">{{ product.rating }}</span>
+                    <span class="review-count">({{ product.review_count }}件のレビュー)</span>
+                </div>
+                <p class="product-price">{{ product.price }}</p>
+                <p class="product-description">{{ product.description }}</p>
+                {% if product.pros %}
+                <div class="product-pros">
+                    <h4>メリット</h4>
+                    <ul>
+                        {% for pro in product.pros %}
+                        <li>{{ pro }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% if product.cons %}
+                <div class="product-cons">
+                    <h4>デメリット</h4>
+                    <ul>
+                        {% for con in product.cons %}
+                        <li>{{ con }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                <a href="{{ product.affiliate_url(amazon_tag) }}"
+                   class="product-link"
+                   target="_blank"
+                   rel="nofollow noopener sponsored">
+                    Amazonで詳細を見る &rarr;
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- FAQ -->
+    {% if article.faq %}
+    <section id="faq" class="article-section faq-section">
+        <h2>よくある質問</h2>
+        <div class="faq-list">
+            {% for item in article.faq %}
+            <details class="faq-item">
+                <summary class="faq-question">{{ item.question }}</summary>
+                <div class="faq-answer">
+                    <p>{{ item.answer }}</p>
+                </div>
+            </details>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+</article>
+
+<!-- 関連記事 -->
+{% if other_articles %}
+<section class="related-articles">
+    <h2 class="section-title">関連記事</h2>
+    <div class="grid">
+        {% for other in other_articles %}
+        <article class="card">
+            <div class="card-body">
+                <span class="card-tag">{{ other.keyword }}</span>
+                <h3 class="card-title">
+                    <a href="/article/{{ other.slug }}">{{ other.title }}</a>
+                </h3>
+                <p class="card-excerpt">{{ other.meta_description }}</p>
+                <a href="/article/{{ other.slug }}" class="card-link">記事を読む &rarr;</a>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,580 @@
+/* ========== Reset & Base ========== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --primary: #e63946;
+    --primary-dark: #c1121f;
+    --secondary: #457b9d;
+    --dark: #1d3557;
+    --light: #f1faee;
+    --bg: #ffffff;
+    --text: #333333;
+    --text-light: #666666;
+    --border: #e0e0e0;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --radius: 8px;
+    --max-width: 1100px;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.8;
+}
+
+a {
+    color: var(--secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: var(--primary);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ========== Header ========== */
+.site-header {
+    background: var(--dark);
+    color: #fff;
+    padding: 16px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.site-header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.site-logo {
+    color: #fff;
+    text-decoration: none;
+}
+
+.site-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.site-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 24px;
+}
+
+.site-nav a {
+    color: #ddd;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.site-nav a:hover {
+    color: #fff;
+}
+
+/* ========== Hero ========== */
+.hero {
+    background: linear-gradient(135deg, var(--dark), var(--secondary));
+    color: #fff;
+    padding: 60px 0;
+    margin: 0 -20px 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+    border-radius: 0 0 16px 16px;
+}
+
+.hero h2 {
+    font-size: 2rem;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ========== Section Titles ========== */
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid var(--primary);
+    display: inline-block;
+}
+
+/* ========== Card Grid ========== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 48px;
+}
+
+.card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.card-body {
+    padding: 24px;
+}
+
+.card-tag {
+    display: inline-block;
+    background: var(--light);
+    color: var(--dark);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.card-title a {
+    color: var(--text);
+}
+
+.card-title a:hover {
+    color: var(--primary);
+}
+
+.card-excerpt {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-meta {
+    font-size: 0.8rem;
+    color: #999;
+    margin-bottom: 8px;
+}
+
+.card-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+/* ========== About ========== */
+.about-section {
+    background: var(--light);
+    padding: 40px;
+    border-radius: var(--radius);
+    margin-bottom: 48px;
+}
+
+.about-content p {
+    margin-bottom: 12px;
+}
+
+/* ========== Breadcrumb ========== */
+.breadcrumb {
+    margin: 20px 0;
+    font-size: 0.85rem;
+}
+
+.breadcrumb ol {
+    display: flex;
+    list-style: none;
+    gap: 8px;
+}
+
+.breadcrumb li::after {
+    content: ">";
+    margin-left: 8px;
+    color: #999;
+}
+
+.breadcrumb li:last-child::after {
+    content: "";
+}
+
+.breadcrumb li:last-child {
+    color: var(--text-light);
+}
+
+/* ========== Article ========== */
+.article-header {
+    margin-bottom: 32px;
+}
+
+.article-keyword {
+    display: inline-block;
+    background: var(--primary);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+}
+
+.article-header h1 {
+    font-size: 1.8rem;
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+
+.article-meta {
+    display: flex;
+    gap: 20px;
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+/* ========== TOC ========== */
+.toc {
+    background: var(--light);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 32px;
+}
+
+.toc h2 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+}
+
+.toc ol {
+    padding-left: 20px;
+}
+
+.toc li {
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+}
+
+/* ========== Article Sections ========== */
+.article-intro {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    margin-bottom: 32px;
+    padding: 20px;
+    background: #fafafa;
+    border-left: 4px solid var(--secondary);
+    border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.article-section {
+    margin-bottom: 40px;
+}
+
+.article-section h2 {
+    font-size: 1.4rem;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--primary);
+    margin-bottom: 16px;
+}
+
+.section-content {
+    line-height: 1.9;
+}
+
+.section-content p {
+    margin-bottom: 16px;
+}
+
+/* ========== Product Cards ========== */
+.products-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.product-card {
+    background: #fff;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    position: relative;
+    transition: border-color 0.2s;
+}
+
+.product-card:hover {
+    border-color: var(--primary);
+}
+
+.product-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.product-rank {
+    background: var(--primary);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.product-card:nth-child(1) .product-rank { background: #ffd700; color: #333; }
+.product-card:nth-child(2) .product-rank { background: #c0c0c0; color: #333; }
+.product-card:nth-child(3) .product-rank { background: #cd7f32; color: #fff; }
+
+.product-header h3 {
+    font-size: 1.15rem;
+}
+
+.product-rating {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.stars {
+    color: #f5a623;
+    margin-right: 4px;
+}
+
+.review-count {
+    color: var(--text-light);
+    font-size: 0.85rem;
+}
+
+.product-price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.product-description {
+    color: var(--text-light);
+    margin-bottom: 12px;
+}
+
+.product-pros, .product-cons {
+    margin-bottom: 12px;
+}
+
+.product-pros h4 {
+    color: #2d9d3f;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+}
+
+.product-cons h4 {
+    color: #d32f2f;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+}
+
+.product-pros ul, .product-cons ul {
+    list-style: none;
+    padding: 0;
+}
+
+.product-pros li::before {
+    content: "\2714\0020";
+    color: #2d9d3f;
+}
+
+.product-cons li::before {
+    content: "\2716\0020";
+    color: #d32f2f;
+}
+
+.product-link {
+    display: inline-block;
+    background: #ff9900;
+    color: #fff;
+    font-weight: 700;
+    padding: 12px 24px;
+    border-radius: var(--radius);
+    text-align: center;
+    margin-top: 8px;
+    transition: background 0.2s;
+}
+
+.product-link:hover {
+    background: #e68a00;
+    color: #fff;
+}
+
+/* ========== FAQ ========== */
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.faq-item {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.faq-question {
+    padding: 16px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--light);
+    list-style: none;
+}
+
+.faq-question::-webkit-details-marker {
+    display: none;
+}
+
+.faq-question::before {
+    content: "Q. ";
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.faq-answer {
+    padding: 16px 20px;
+    background: #fff;
+}
+
+.faq-answer p::before {
+    content: "A. ";
+    color: var(--secondary);
+    font-weight: 700;
+}
+
+details[open] .faq-question {
+    border-bottom: 1px solid var(--border);
+}
+
+/* ========== Related Articles ========== */
+.related-articles {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 2px solid var(--border);
+}
+
+/* ========== Footer ========== */
+.site-footer {
+    background: var(--dark);
+    color: #ccc;
+    padding: 40px 0 20px;
+    margin-top: 60px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    margin-bottom: 24px;
+}
+
+.footer-content h3 {
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 12px;
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 6px;
+}
+
+.footer-links a {
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+    color: #fff;
+}
+
+.footer-bottom {
+    border-top: 1px solid #444;
+    padding-top: 16px;
+    font-size: 0.8rem;
+    text-align: center;
+    color: #888;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 768px) {
+    .site-header .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .site-nav ul {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .hero h2 {
+        font-size: 1.4rem;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .article-header h1 {
+        font-size: 1.4rem;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .article-meta {
+        flex-direction: column;
+        gap: 4px;
+    }
+}

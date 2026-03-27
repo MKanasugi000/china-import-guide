@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: auto-affiliate
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: AMAZON_ASSOCIATE_TAG
+        sync: false
+      - key: SITE_URL
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+    healthCheckPath: /
+    autoDeploy: true

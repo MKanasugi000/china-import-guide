@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <h2>中国輸入ビジネスを始めるなら</h2>
+    <p>商品比較、始め方、利益計算ツールなど、中国輸入ビジネスに必要な最新情報をお届けします。</p>
+</section>
+
+<section class="articles-grid">
+    <h2 class="section-title">最新記事</h2>
+    <div class="grid">
+        {% for article in articles %}
+        <article class="card">
+            <div class="card-body">
+                <span class="card-tag">{{ article.keyword }}</span>
+                <h3 class="card-title">
+                    <a href="/article/{{ article.slug }}">{{ article.title }}</a>
+                </h3>
+                <p class="card-excerpt">{{ article.meta_description }}</p>
+                <div class="card-meta">
+                    <time datetime="{{ article.updated_at.strftime('%Y-%m-%d') }}">
+                        {{ article.updated_at.strftime('%Y年%m月%d日') }}更新
+                    </time>
+                </div>
+                <a href="/article/{{ article.slug }}" class="card-link">記事を読む &rarr;</a>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="about-section">
+    <h2 class="section-title">当サイトについて</h2>
+    <div class="about-content">
+        <p>「{{ site_name }}」は、中国輸入ビジネスに関する最新情報を提供する比較・情報サイトです。</p>
+        <p>おすすめ商品のランキング、Amazon FBAの始め方、利益計算ツールの比較など、初心者から上級者まで役立つ情報を掲載しています。</p>
+        <p>記事は定期的に更新し、常に最新のトレンドと情報をお届けします。</p>
+    </div>
+</section>
+{% endblock %}
